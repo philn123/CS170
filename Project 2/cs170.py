@@ -63,9 +63,10 @@ def leaving_one_out(instances, number_of_instances, feature_subset):
 
     for i in range(number_of_instances):
         leave_out = i  # this is instance for nearest neighbor classifier
+        correct_class_label = instances[leave_out][0]
         neighbor_class_label = nearest_neighbor(instances, leave_out, number_of_instances, feature_subset)
 
-        if neighbor_class_label == instances[leave_out][0]:  # compare class labels for correctness
+        if neighbor_class_label == correct_class_label:  # compare class labels for correctness
             correct_amount += 1
 
     return (correct_amount / number_of_instances) * 100.0  # to get percentage, you multiply by 100.0
@@ -89,7 +90,7 @@ def forward_selection(instances, number_of_instances, number_of_features):
                 print("Using feature(s) " + str(current_set) + " accuracy is " + str(accuracy) + "%")
                 if accuracy > best_accuracy_overall:  # checking for best accuracy overall
                     adding_new_best_feature = True
-                    feature_to_add = k
+                    #feature_to_add = k
                     best_accuracy_overall = accuracy
                 if accuracy > best_so_far_accuracy:  # checking for best accuracy at each level
                     best_so_far_accuracy = accuracy
@@ -134,7 +135,7 @@ def backward_selection(instances, number_of_instances, number_of_features):
                 print("Using feature(s) " + str(temp) + " accuracy is " + str(accuracy) + "%")
                 if accuracy > best_accuracy_overall:  # checking for best accuracy overall
                     removing_new_best_feature = True
-                    feature_to_remove = k
+                    #feature_to_remove = k
                     best_accuracy_overall = accuracy
                 if accuracy > best_so_far_accuracy:  # checking for best accuracy at each level
                     best_so_far_accuracy = accuracy
@@ -151,7 +152,7 @@ def backward_selection(instances, number_of_instances, number_of_features):
             #print("(Warning, Accuracy has decreased! Continuing search in case of local maxima)")
             print("(Warning, Accuracy has decreased! Stopping Search)")
             print("Feature set " + str(current_set) + " was best, accuracy is " + str(best_so_far_accuracy) + "%")
-            break  # break if we stop when accuracy drops
+            #break  # break if we stop when accuracy drops
 
     print("Finished search!! The best feature subset is " + str(best_set) + " which has an accuracy of " + str(
         best_accuracy_overall) + "%")
